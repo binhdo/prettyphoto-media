@@ -1,0 +1,22 @@
+/*
+ * prettyPhoto Media Admin stylesheet
+ */
+.prettyphoto-media-settings {
+
+}
+.prettyphoto-media-settings label {
+	display: block;
+	float: left;
+	width: 120px;
+	margin-right: 10px;
+}
+.prettyphoto-media-settings .row {
+	margin: 18px 0;
+	clear: both;
+}
+ul.ui-tabs-nav {
+	margin: 0;
+}
+.ui-tabs-nav li {
+	display: inline;
+}
