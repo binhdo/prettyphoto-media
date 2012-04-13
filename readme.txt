@@ -1,7 +1,7 @@
 === prettyPhoto Media ===
 Contributors: binhdo
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QZM4M7KZUEZML
-Tags: plugin, template
+Tags: prettyphoto, media, lightbox, modal, overlay, gallery, slideshow, images, flash, iframe, youtube, vimeo, jquery
 Requires at least: 3.3
 Tested up to: 3.4
 Stable tag: 1.1
@@ -12,14 +12,14 @@ Display images, videos and other media in a fancy overlay utilising prettyPhoto.
 
 A simple plugin to conveniently add [prettyPhoto](http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ "prettyPhoto project page") lightbox / modal overlay functionality to your WordPress posts and pages.
 
-## Features
+= Features =
 
-* includes the latest prettyPhoto v3.1.4 script (pulled from https://github.com/scaron/prettyphoto)
+* includes the latest **prettyPhoto v3.1.4** script (pulled from https://github.com/scaron/prettyphoto)
 * fully customisable through the plugins settings page
 * configurable 'hook' attribute tag, support for HTML5 compliant 'data-' attribute
 * option to automatically transform built-in WordPress galleries (linked to images) into prettyPhoto slideshows
 
-## License Notice
+= License Notice =
 
 The author of this plugin is not in any way affiliated to the developer of the prettyPhoto jQuery plugin.
 prettyPhoto is being developed by [Stephane Caron](http://www.no-margin-for-errors.com), who kindly agreed to
