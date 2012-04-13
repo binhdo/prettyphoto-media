@@ -3,7 +3,7 @@
  * Plugin Name: prettyPhoto Media
  * Plugin URI: http://binaryhideout.com
  * Description: Display images and other media utilising prettyPhoto.
- * Version: 1.0
+ * Version: 1.1
  * Author: Markus Dobersalsky
  * Author URI: http://binaryhideout.com
  * License: GPLv2 or later
@@ -25,7 +25,7 @@ class PrettyPhotoMedia {
 		/* Define constants */
 		define( 'PRETTYPHOTO_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'PRETTYPHOTO_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
-		define( 'PRETTYPHOTO_VERSION', '1.0' );
+		define( 'PRETTYPHOTO_VERSION', '1.1' );
 
 		/* Load plugin functions */
 		require_once (PRETTYPHOTO_DIR . 'prettyphoto-media_functions.php');

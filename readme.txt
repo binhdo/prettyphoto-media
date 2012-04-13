@@ -1,4 +1,10 @@
-# prettyPhoto Media
+=== prettyPhoto Media ===
+Contributors: binhdo
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QZM4M7KZUEZML
+Tags: plugin, template
+Requires at least: 3.3
+Tested up to: 3.4
+Stable tag: 1.1
 
 Display images, videos and other media in a fancy overlay utilising prettyPhoto.
 
