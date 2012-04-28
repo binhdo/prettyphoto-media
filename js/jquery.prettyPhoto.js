@@ -90,7 +90,7 @@
 			iframe_markup: '<iframe src ="{path}" width="{width}" height="{height}" frameborder="no"></iframe>',
 			inline_markup: '<div class="pp_inline">{content}</div>',
 			custom_markup: '',
-			social_tools: '<div class="twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div><div class="facebook"><iframe src="//www.facebook.com/plugins/like.php?locale=en_US&href={location_href}&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowTransparency="true"></iframe></div>' /* html or false to disable */
+			social_tools: false /* html or false to disable, suggested markup: <div class="twitter"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/tweet_button.html?count=none&amp;url={location_href}" style="width:58px; height:20px;"></iframe></div><div class="facebook"><iframe src="//www.facebook.com/plugins/like.php?href={location_href}&amp;send=false&amp;layout=button_count&amp;width=500&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></div> */
 		}, pp_settings);
 		
 		// Global variables accessible only by prettyPhoto
@@ -203,7 +203,7 @@
 		
 			// Rebuild Facebook Like Button with updated href
 			if(settings.social_tools){
-				facebook_like_link = settings.social_tools.replace('{location_href}', encodeURIComponent(location.href)); 
+				facebook_like_link = settings.social_tools.replace(/{location_href}/g, encodeURIComponent(location.href)); 
 				$pp_pic_holder.find('.pp_social').html(facebook_like_link);
 			}
 			
@@ -751,7 +751,7 @@
 		function _build_overlay(caller){
 			// Inject Social Tool markup into General markup
 			if(settings.social_tools)
-				facebook_like_link = settings.social_tools.replace('{location_href}', encodeURIComponent(location.href)); 
+				facebook_like_link = settings.social_tools.replace(/{location_href}/g, encodeURIComponent(location.href)); 
 
 			settings.markup = settings.markup.replace('{pp_social}',''); 
 			

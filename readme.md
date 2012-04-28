@@ -13,6 +13,8 @@ A simple plugin to conveniently add [prettyPhoto](http://www.no-margin-for-error
 * configurable 'hook' attribute tag, support for HTML5 compliant 'data-' attribute
 * option to automatically transform built-in WordPress galleries (linked to images) into prettyPhoto slideshows
 
+For a demonstration, please visit [my blog entry](http://binaryhideout.com/prettyphoto-media-wordpress-plugin/ "prettyPhoto Media WordPress Plugin").
+
 ## License Notice
 
 The author of this plugin is not in any way affiliated to the developer of the prettyPhoto jQuery plugin.

@@ -10,6 +10,10 @@
 	width: 120px;
 	margin-right: 10px;
 }
+.prettyphoto-media-settings .description {
+	display: inline;
+	vertical-align: baseline;
+}
 .prettyphoto-media-settings .row {
 	margin: 18px 0;
 	clear: both;

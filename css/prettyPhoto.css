@@ -1,7 +1,3 @@
-/* ------------------------------------------------------------------------
- This you can edit.
- ------------------------------------------------------------------------- */
-
 /* ----------------------------------
  Default Theme
  ----------------------------------- */
@@ -40,6 +36,7 @@ div.pp_default .pp_bottom .pp_left{background:url(../images/prettyPhoto/default/
 div.pp_default .pp_bottom .pp_middle{background:url(../images/prettyPhoto/default/sprite_x.png) bottom left repeat-x;}/* Bottom pattern/color */
 div.pp_default .pp_bottom .pp_right{background:url(../images/prettyPhoto/default/sprite.png) -112px -127px no-repeat;}/* Bottom right corner */
 div.pp_default .pp_loaderIcon{background:url(../images/prettyPhoto/default/loader.gif) center center no-repeat;}/* Loader icon */
+
 /* ----------------------------------
  Light Rounded Theme
  ----------------------------------- */
@@ -71,6 +68,7 @@ div.light_rounded .pp_bottom .pp_left{background:url(../images/prettyPhoto/light
 div.light_rounded .pp_bottom .pp_middle{background:#fff;}/* Bottom pattern/color */
 div.light_rounded .pp_bottom .pp_right{background:url(../images/prettyPhoto/light_rounded/sprite.png) -110px -80px no-repeat;}/* Bottom right corner */
 div.light_rounded .pp_loaderIcon{background:url(../images/prettyPhoto/light_rounded/loader.gif) center center no-repeat;}/* Loader icon */
+
 /* ----------------------------------
  Dark Rounded Theme
  ----------------------------------- */
@@ -104,6 +102,7 @@ div.dark_rounded .pp_bottom .pp_left{background:url(../images/prettyPhoto/dark_r
 div.dark_rounded .pp_bottom .pp_middle{background:url(../images/prettyPhoto/dark_rounded/contentPattern.png) top left repeat;}/* Bottom pattern/color */
 div.dark_rounded .pp_bottom .pp_right{background:url(../images/prettyPhoto/dark_rounded/sprite.png) -110px -80px no-repeat;}/* Bottom right corner */
 div.dark_rounded .pp_loaderIcon{background:url(../images/prettyPhoto/dark_rounded/loader.gif) center center no-repeat;}/* Loader icon */
+
 /* ----------------------------------
  Dark Square Theme
  ----------------------------------- */
@@ -130,6 +129,7 @@ div.dark_square .pp_arrow_next{background:url(../images/prettyPhoto/dark_square/
 div.dark_square .pp_arrow_next.disabled{background-position:-22px -87px;cursor:default;}
 div.dark_square .pp_next:hover{background:url(../images/prettyPhoto/dark_square/btnNext.png) center right no-repeat;cursor:pointer;}/* Next button */
 div.dark_square .pp_previous:hover{background:url(../images/prettyPhoto/dark_square/btnPrevious.png) center left no-repeat;cursor:pointer;}/* Previous button */
+
 /* ----------------------------------
  Light Square Theme
  ----------------------------------- */
@@ -154,6 +154,7 @@ div.light_square .pp_arrow_next.disabled{background-position:-22px -87px;cursor:
 div.light_square .pp_next:hover{background:url(../images/prettyPhoto/light_square/btnNext.png) center right no-repeat;cursor:pointer;}/* Next button */
 div.light_square .pp_previous:hover{background:url(../images/prettyPhoto/light_square/btnPrevious.png) center left no-repeat;cursor:pointer;}/* Previous button */
 div.light_square .pp_loaderIcon{background:url(../images/prettyPhoto/light_rounded/loader.gif) center center no-repeat;}/* Loader icon */
+
 /* ----------------------------------
  Facebook style Theme
  ----------------------------------- */
@@ -187,6 +188,7 @@ div.facebook .pp_previous:hover{background:url(../images/prettyPhoto/facebook/bt
 div.facebook .pp_bottom .pp_left{background:url(../images/prettyPhoto/facebook/sprite.png) -88px -80px no-repeat;}/* Bottom left corner */
 div.facebook .pp_bottom .pp_middle{background:url(../images/prettyPhoto/facebook/contentPatternBottom.png) top left repeat-x;}/* Bottom pattern/color */
 div.facebook .pp_bottom .pp_right{background:url(../images/prettyPhoto/facebook/sprite.png) -110px -80px no-repeat;}/* Bottom right corner */
+
 /* ------------------------------------------------------------------------
  DO NOT CHANGE
  ------------------------------------------------------------------------- */
@@ -209,8 +211,8 @@ div.pp_pic_holder{display:none;position:absolute;width:100px;z-index:10000;}
 .pp_content_container .pp_details{float:left;margin:10px 0 2px 0;}
 .pp_description{display:none;margin:0;}
 .pp_social{float:left;margin:0;}
-.pp_social .facebook{float:left;margin-left:5px;width:55px;overflow:hidden;}
-.pp_social .twitter{float:left;}
+.pp_social .facebook{float:left;width:55px;overflow:hidden;}
+.pp_social .twitter{float:left;margin-right:5px;}
 .pp_nav{clear:right;float:left;margin:3px 10px 0 0;}
 .pp_nav p{float:left;margin:2px 4px;white-space:nowrap;}
 .pp_nav .pp_play,.pp_nav .pp_pause{float:left;margin-right:4px;text-indent:-10000px;}
