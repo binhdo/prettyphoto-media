@@ -21,7 +21,7 @@ A simple plugin to conveniently add [prettyPhoto](http://www.no-margin-for-error
 
 = Upgrade Notice =
 
-If you encounter any problem after upgrading to v1.3, please deactivate and reactivate the plugin. This should properly 
+If you encounter any issues after upgrading to v1.3, please deactivate and reactivate the plugin. This should properly 
 reinitialise the plugin settings and restore the default values.
  
 = License Notice =
