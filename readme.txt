@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: prettyphoto, media, lightbox, modal, overlay, gallery, slideshow, images, flash, iframe, youtube, vimeo, jquery
 Requires at least: 3.3
 Tested up to: 3.4
-Stable tag: 1.1
+Stable tag: 1.3
 
 Display images, videos and other media in a fancy overlay utilising prettyPhoto.
 
@@ -42,6 +42,9 @@ For more information on prettyPhoto please visit the project page:
 3. prettyPhoto customisation settings
 
 == Changelog ==
+
+= v1.4 =
+* fixing a bug where a custom 'ppselector'-setting was not applied to the initialisation script 
 
 = v1.3 =
 
