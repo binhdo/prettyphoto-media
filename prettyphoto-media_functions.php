@@ -58,7 +58,7 @@ function prettyphoto_footer_script() {
 	$out = '<script>' . "\n";
 	$out .= 'jQuery(function($) {' . "\n";
 
-	$out .= '$(\'a[' . prettyphoto_get_option( 'hook' ) . '^="prettyPhoto"]\').prettyPhoto(';
+	$out .= '$(\'a[' . prettyphoto_get_option( 'hook' ) . '^="' . prettyphoto_get_option( 'ppselector' ) . '"]\').prettyPhoto(';
 
 	if ( isset( $options_changed ) ) {
 		$out .= '{ ' . implode( ', ', $options_changed ) . ' }';
