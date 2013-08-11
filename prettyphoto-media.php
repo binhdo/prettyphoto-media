@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Plugin Name: prettyPhoto Media
  * Plugin URI: http://binaryhideout.com
@@ -13,6 +14,7 @@ $prettyphotomedia = new PrettyPhotoMedia();
 
 class PrettyPhotoMedia {
 	/* PHP5 constructor */
+
 	function __construct() {
 		add_action( 'plugins_loaded', array(
 			&$this,
@@ -21,6 +23,7 @@ class PrettyPhotoMedia {
 	}
 
 	/* Initialise plugin */
+
 	function prettyphoto_init() {
 		/* Define constants */
 		define( 'PRETTYPHOTO_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -30,13 +33,13 @@ class PrettyPhotoMedia {
 		/* Load plugin functions */
 		require_once (PRETTYPHOTO_DIR . 'prettyphoto-media_functions.php');
 
-		/* Load settings page /*/
-		if ( is_admin( ) ) {
+		/* Load settings page / */
+		if ( is_admin() ) {
 			require_once (PRETTYPHOTO_DIR . 'prettyphoto-media_settings.php');
 			add_filter( 'plugin_action_links', array(
 				&$this,
 				'prettyphoto_plugin_action_links'
-			), 10, 2 );
+					), 10, 2 );
 			register_deactivation_hook( __FILE__, array(
 				&$this,
 				'prettyphoto_deactivate_plugin'
@@ -58,4 +61,3 @@ class PrettyPhotoMedia {
 	}
 
 }
-?>
