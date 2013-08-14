@@ -1,4 +1,10 @@
-# prettyPhoto Media
+=== prettyPhoto Media ===
+Contributors: binhdo
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QZM4M7KZUEZML
+Tags: prettyphoto, media, lightbox, modal, overlay, gallery, slideshow, images, flash, iframe, youtube, vimeo, jquery
+Requires at least: 3.3
+Tested up to: 3.4
+Stable tag: 1.3
 
 Display images, videos and other media in a fancy overlay utilising prettyPhoto.
 
@@ -6,16 +12,19 @@ Display images, videos and other media in a fancy overlay utilising prettyPhoto.
 
 A simple plugin to conveniently add [prettyPhoto](http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ "prettyPhoto project page") lightbox / modal overlay functionality to your WordPress posts and pages.
 
-## Features
+= Features =
 
-* includes the latest **prettyPhoto v3.1.4** script (pulled from https://github.com/scaron/prettyphoto)
+* includes the latest **prettyPhoto v3.1.5** script (slightly modified in plugin version 1.3)
 * fully customisable through the plugins settings page
 * configurable 'hook' attribute tag, support for HTML5 compliant 'data-' attribute
 * option to automatically transform built-in WordPress galleries (linked to images) into prettyPhoto slideshows
 
-For a demonstration, please visit [my blog entry](http://binaryhideout.com/prettyphoto-media-wordpress-plugin/ "prettyPhoto Media WordPress Plugin").
+= Upgrade Notice =
 
-## License Notice
+If you encounter any issues after upgrading to v1.3, please deactivate and reactivate the plugin. This should properly 
+reinitialise the plugin settings and restore the default values.
+ 
+= License Notice =
 
 The author of this plugin is not in any way affiliated to the developer of the prettyPhoto jQuery plugin.
 prettyPhoto is being developed by [Stephane Caron](http://www.no-margin-for-errors.com), who kindly agreed to
@@ -33,6 +42,23 @@ For more information on prettyPhoto please visit the project page:
 3. prettyPhoto customisation settings
 
 == Changelog ==
+
+= 2.0 =
+
+= v1.4 =
+* fixing a bug where a custom 'ppselector'-setting was not applied to the initialisation script 
+
+= v1.3 =
+
+* added settings to configure prettyPhoto's built in social tools (**social tools are now diabled by default**)
+* overhauled settings structure
+* fixed a bug related to the 'hideflash' setting
+* small stylesheet modifications
+* prepare plugin for translation
+
+= v1.2 =
+
+* release skipped 
 
 = v1.1 =
 

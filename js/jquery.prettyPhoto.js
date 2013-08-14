@@ -2,10 +2,10 @@
 	Class: prettyPhoto
 	Use: Lightbox clone for jQuery
 	Author: Stephane Caron (http://www.no-margin-for-errors.com)
-	Version: 3.1.4
+	Version: 3.1.5
 ------------------------------------------------------------------------- */
 (function($) {
-	$.prettyPhoto = {version: '3.1.4'};
+	$.prettyPhoto = {version: '3.1.5'};
 	
 	$.fn.prettyPhoto = function(pp_settings) {
 		pp_settings = jQuery.extend({
@@ -103,7 +103,7 @@
 		windowHeight = $(window).height(), windowWidth = $(window).width(),
 
 		// Global elements
-		pp_slideshow;
+		pp_slideshow,
 		
 		doresize = true, scroll_pos = _get_scroll();
 	
@@ -128,12 +128,12 @@
 								$.prettyPhoto.close();
 								e.preventDefault();
 								break;
-						};
+						}
 						// return false;
-					};
-				};
+					}
+				}
 			});
-		};
+		}
 		
 		/**
 		* Initialize prettyPhoto.
@@ -143,7 +143,6 @@
 			settings = pp_settings;
 			
 			if(settings.theme == 'pp_default') settings.horizontal_padding = 16;
-			if(settings.ie6_fallback && $.browser.msie && parseInt($.browser.version) == 6) settings.theme = "light_square"; // Fallback to a supported theme for IE6
 			
 			// Find out if the picture is part of a set
 			theRel = $(this).attr(settings.hook);
@@ -169,7 +168,7 @@
 			$.prettyPhoto.open();
 			
 			return false;
-		}
+		};
 
 
 		/**
@@ -181,7 +180,6 @@
 		$.prettyPhoto.open = function(event) {
 			if(typeof settings == "undefined"){ // Means it's an API call, need to manually get the settings and set the variables
 				settings = pp_settings;
-				if($.browser.msie && $.browser.version == 6) settings.theme = "light_square"; // Fallback to a supported theme for IE6
 				pp_images = $.makeArray(arguments[0]);
 				pp_titles = (arguments[1]) ? $.makeArray(arguments[1]) : $.makeArray("");
 				pp_descriptions = (arguments[2]) ? $.makeArray(arguments[2]) : $.makeArray("");
@@ -189,8 +187,6 @@
 				set_position = (arguments[3])? arguments[3]: 0;
 				_build_overlay(event.target); // Build the overlay {this} being the caller
 			}
-
-			if($.browser.msie && $.browser.version == 6) $('select').css('visibility','hidden'); // To fix the bug with IE select boxes
 			
 			if(settings.hideflash) $('object,embed,iframe[src*=youtube],iframe[src*=vimeo]').css('visibility','hidden'); // Hide the flash
 
@@ -203,7 +199,7 @@
 		
 			// Rebuild Facebook Like Button with updated href
 			if(settings.social_tools){
-				facebook_like_link = settings.social_tools.replace(/{location_href}/g, encodeURIComponent(location.href)); 
+				facebook_like_link = settings.social_tools.replace(/\{location_href\}/g, encodeURIComponent(location.href)); 
 				$pp_pic_holder.find('.pp_social').html(facebook_like_link);
 			}
 			
@@ -249,7 +245,7 @@
 						prevImage = new Image();
 						if(isSet && pp_images[set_position - 1]) prevImage.src = pp_images[set_position - 1];
 
-						$pp_pic_holder.find('#pp_full_res')[0].innerHTML = settings.image_markup.replace(/{path}/g,pp_images[set_position]);
+						$pp_pic_holder.find('#pp_full_res')[0].innerHTML = settings.image_markup.replace(/\{path\}/g,pp_images[set_position]);
 
 						imgPreloader.onload = function(){
 							// Fit item to viewport
@@ -288,29 +284,29 @@
 							
 						if(settings.autoplay) movie += "&autoplay=1";
 					
-						toInject = settings.iframe_markup.replace(/{width}/g,pp_dimensions['width']).replace(/{height}/g,pp_dimensions['height']).replace(/{wmode}/g,settings.wmode).replace(/{path}/g,movie);
+						toInject = settings.iframe_markup.replace(/\{width\}/g,pp_dimensions['width']).replace(/\{height\}/g,pp_dimensions['height']).replace(/\{wmode\}/g,settings.wmode).replace(/\{path\}/g,movie);
 					break;
 				
 					case 'vimeo':
 						pp_dimensions = _fitToViewport(movie_width,movie_height); // Fit item to viewport
 					
 						movie_id = pp_images[set_position];
-						var regExp = /http:\/\/(www\.)?vimeo.com\/(\d+)/;
+						var regExp = /http(s?):\/\/(www\.)?vimeo.com\/(\d+)/;
 						var match = movie_id.match(regExp);
 						
-						movie = 'http://player.vimeo.com/video/'+ match[2] +'?title=0&amp;byline=0&amp;portrait=0';
+						movie = 'http://player.vimeo.com/video/'+ match[3] +'?title=0&amp;byline=0&amp;portrait=0';
 						if(settings.autoplay) movie += "&autoplay=1;";
 				
 						vimeo_width = pp_dimensions['width'] + '/embed/?moog_width='+ pp_dimensions['width'];
 				
-						toInject = settings.iframe_markup.replace(/{width}/g,vimeo_width).replace(/{height}/g,pp_dimensions['height']).replace(/{path}/g,movie);
+						toInject = settings.iframe_markup.replace(/\{width\}/g,vimeo_width).replace(/\{height\}/g,pp_dimensions['height']).replace(/\{path\}/g,movie);
 					break;
 				
 					case 'quicktime':
 						pp_dimensions = _fitToViewport(movie_width,movie_height); // Fit item to viewport
 						pp_dimensions['height']+=15; pp_dimensions['contentHeight']+=15; pp_dimensions['containerHeight']+=15; // Add space for the control bar
 				
-						toInject = settings.quicktime_markup.replace(/{width}/g,pp_dimensions['width']).replace(/{height}/g,pp_dimensions['height']).replace(/{wmode}/g,settings.wmode).replace(/{path}/g,pp_images[set_position]).replace(/{autoplay}/g,settings.autoplay);
+						toInject = settings.quicktime_markup.replace(/\{width\}/g,pp_dimensions['width']).replace(/\{height\}/g,pp_dimensions['height']).replace(/\{wmode\}/g,settings.wmode).replace(/\{path\}/g,pp_images[set_position]).replace(/\{autoplay\}/g,settings.autoplay);
 					break;
 				
 					case 'flash':
@@ -322,7 +318,7 @@
 						filename = pp_images[set_position];
 						filename = filename.substring(0,filename.indexOf('?'));
 					
-						toInject =  settings.flash_markup.replace(/{width}/g,pp_dimensions['width']).replace(/{height}/g,pp_dimensions['height']).replace(/{wmode}/g,settings.wmode).replace(/{path}/g,filename+'?'+flash_vars);
+						toInject =  settings.flash_markup.replace(/\{width\}/g,pp_dimensions['width']).replace(/\{height\}/g,pp_dimensions['height']).replace(/\{wmode\}/g,settings.wmode).replace(/\{path\}/g,filename+'?'+flash_vars);
 					break;
 				
 					case 'iframe':
@@ -331,7 +327,7 @@
 						frame_url = pp_images[set_position];
 						frame_url = frame_url.substr(0,frame_url.indexOf('iframe')-1);
 
-						toInject = settings.iframe_markup.replace(/{width}/g,pp_dimensions['width']).replace(/{height}/g,pp_dimensions['height']).replace(/{path}/g,frame_url);
+						toInject = settings.iframe_markup.replace(/\{width\}/g,pp_dimensions['width']).replace(/\{height\}/g,pp_dimensions['height']).replace(/\{path\}/g,frame_url);
 					break;
 					
 					case 'ajax':
@@ -341,7 +337,7 @@
 					
 						skipInjection = true;
 						$.get(pp_images[set_position],function(responseHTML){
-							toInject = settings.inline_markup.replace(/{content}/g,responseHTML);
+							toInject = settings.inline_markup.replace(/\{content\}/g,responseHTML);
 							$pp_pic_holder.find('#pp_full_res')[0].innerHTML = toInject;
 							_showContent();
 						});
@@ -361,16 +357,16 @@
 						pp_dimensions = _fitToViewport($(myClone).width(),$(myClone).height());
 						doresize = true; // Reset the dimensions
 						$(myClone).remove();
-						toInject = settings.inline_markup.replace(/{content}/g,$(pp_images[set_position]).html());
+						toInject = settings.inline_markup.replace(/\{content\}/g,$(pp_images[set_position]).html());
 					break;
-				};
+				}
 
 				if(!imgPreloader && !skipInjection){
 					$pp_pic_holder.find('#pp_full_res')[0].innerHTML = toInject;
 				
 					// Show content
 					_showContent();
-				};
+				}
 			});
 
 			return false;
@@ -392,7 +388,7 @@
 				if(set_position > $(pp_images).size()-1) set_position = 0;
 			}else{
 				set_position=direction;
-			};
+			}
 			
 			rel_index = set_position;
 
@@ -420,7 +416,7 @@
 				if(currentGalleryPage < 0) currentGalleryPage = totalPage;
 			}else{
 				currentGalleryPage = direction;
-			};
+			}
 			
 			slide_speed = (direction == 'next' || direction == 'previous') ? settings.animation_speed : 0;
 
@@ -442,8 +438,8 @@
 				pp_slideshow = setInterval($.prettyPhoto.startSlideshow,settings.slideshow);
 			}else{
 				$.prettyPhoto.changePage('next');	
-			};
-		}
+			}
+		};
 
 
 		/**
@@ -456,7 +452,7 @@
 			});
 			clearInterval(pp_slideshow);
 			pp_slideshow=undefined;
-		}
+		};
 
 
 		/**
@@ -472,7 +468,6 @@
 			$('div.pp_pic_holder,div.ppt,.pp_fade').fadeOut(settings.animation_speed,function(){ $(this).remove(); });
 			
 			$pp_overlay.fadeOut(settings.animation_speed, function(){
-				if($.browser.msie && $.browser.version == 6) $('select').css('visibility','visible'); // To fix the bug with IE select boxes
 				
 				if(settings.hideflash) $('object,embed,iframe[src*=youtube],iframe[src*=vimeo]').css('visibility','visible'); // Show the flash
 				
@@ -541,7 +536,7 @@
 			
 			_insert_gallery();
 			pp_settings.ajaxcallback();
-		};
+		}
 		
 		/**
 		* Hide the content...DUH!
@@ -554,7 +549,7 @@
 				
 				callback();
 			});
-		};
+		}
 	
 		/**
 		* Check the item position in the gallery array, hide or show the navigation links
@@ -562,7 +557,7 @@
 		*/
 		function _checkPosition(setCount){
 			(setCount > 1) ? $('.pp_nav').show() : $('.pp_nav').hide(); // Hide the bottom nav if it's not a set.
-		};
+		}
 	
 		/**
 		* Resize the item dimensions if it's bigger than the viewport
@@ -576,10 +571,10 @@
 			_getDimensions(width,height);
 			
 			// Define them in case there's no resize needed
-			imageWidth = width, imageHeight = height;
+			imageWidth = width; imageHeight = height;
 
 			if( ((pp_containerWidth > windowWidth) || (pp_containerHeight > windowHeight)) && doresize && settings.allow_resize && !percentBased) {
-				resized = true, fitting = false;
+				resized = true; fitting = false;
 			
 				while (!fitting){
 					if((pp_containerWidth > windowWidth)){
@@ -590,16 +585,18 @@
 						imageWidth = (width/height) * imageHeight;
 					}else{
 						fitting = true;
-					};
+					}
 
-					pp_containerHeight = imageHeight, pp_containerWidth = imageWidth;
-				};
+					pp_containerHeight = imageHeight; pp_containerWidth = imageWidth;
+				}
 			
-				_getDimensions(imageWidth,imageHeight);
+
 				
 				if((pp_containerWidth > windowWidth) || (pp_containerHeight > windowHeight)){
 					_fitToViewport(pp_containerWidth,pp_containerHeight)
 				};
+				
+				_getDimensions(imageWidth,imageHeight);
 			};
 			
 			return {
@@ -611,7 +608,7 @@
 				contentWidth:Math.floor(pp_contentWidth),
 				resized:resized
 			};
-		};
+		}
 		
 		/**
 		* Get the containers dimensions according to the item size
@@ -633,7 +630,6 @@
 			});
 			detailsHeight += $pp_details.height();
 			detailsHeight = (detailsHeight <= 34) ? 36 : detailsHeight; // Min-height for the details
-			if($.browser.msie && $.browser.version==7) detailsHeight+=8;
 			$pp_details.remove();
 			
 			// Get the titles height, to do so, I need to clone it since it's invisible
@@ -673,13 +669,13 @@
 				return 'inline';
 			}else{
 				return 'image';
-			};
-		};
+			}
+		}
 	
 		function _center_overlay(){
 			if(doresize && typeof $pp_pic_holder != 'undefined') {
 				scroll_pos = _get_scroll();
-				contentHeight = $pp_pic_holder.height(), contentwidth = $pp_pic_holder.width();
+				contentHeight = $pp_pic_holder.height(); contentwidth = $pp_pic_holder.width();
 
 				projectedTop = (windowHeight/2) + scroll_pos['scrollTop'] - (contentHeight/2);
 				if(projectedTop < 0) projectedTop = 0;
@@ -691,8 +687,8 @@
 					'top': projectedTop,
 					'left': (windowWidth/2) + scroll_pos['scrollLeft'] - (contentwidth/2)
 				});
-			};
-		};
+			}
+		}
 	
 		function _get_scroll(){
 			if (self.pageYOffset) {
@@ -701,17 +697,17 @@
 				return {scrollTop:document.documentElement.scrollTop,scrollLeft:document.documentElement.scrollLeft};
 			} else if (document.body) {// all other Explorers
 				return {scrollTop:document.body.scrollTop,scrollLeft:document.body.scrollLeft};
-			};
-		};
+			}
+		}
 	
 		function _resize_overlay() {
-			windowHeight = $(window).height(), windowWidth = $(window).width();
+			windowHeight = $(window).height(); windowWidth = $(window).width();
 			
 			if(typeof $pp_overlay != "undefined") $pp_overlay.height($(document).height()).width(windowWidth);
-		};
+		}
 	
 		function _insert_gallery(){
-			if(isSet && settings.overlay_gallery && _getFileType(pp_images[set_position])=="image" && (settings.ie6_fallback && !($.browser.msie && parseInt($.browser.version) == 6))) {
+			if(isSet && settings.overlay_gallery && _getFileType(pp_images[set_position])=="image") {
 				itemWidth = 52+5; // 52 beign the thumb width, 5 being the right margin.
 				navWidth = (settings.theme == "facebook" || settings.theme == "pp_default") ? 50 : 30; // Define the arrow width depending on the theme
 				
@@ -725,7 +721,7 @@
 					$pp_gallery.find('.pp_arrow_next,.pp_arrow_previous').hide();
 				}else{
 					$pp_gallery.find('.pp_arrow_next,.pp_arrow_previous').show();
-				};
+				}
 
 				galleryWidth = itemsPerPage * itemWidth;
 				fullGalleryWidth = pp_images.length * itemWidth;
@@ -751,13 +747,13 @@
 		function _build_overlay(caller){
 			// Inject Social Tool markup into General markup
 			if(settings.social_tools)
-				facebook_like_link = settings.social_tools.replace(/{location_href}/g, encodeURIComponent(location.href)); 
+				facebook_like_link = settings.social_tools.replace(/\{location_href\}/g, encodeURIComponent(location.href)); 
 
 			settings.markup = settings.markup.replace('{pp_social}',''); 
 			
 			$('body').append(settings.markup); // Inject the markup
 			
-			$pp_pic_holder = $('.pp_pic_holder') , $ppt = $('.ppt'), $pp_overlay = $('div.pp_overlay'); // Set my global selectors
+			$pp_pic_holder = $('.pp_pic_holder'); $ppt = $('.ppt'); $pp_overlay = $('div.pp_overlay'); // Set my global selectors
 			
 			// Inject the inline gallery!
 			if(isSet && settings.overlay_gallery) {
@@ -772,13 +768,13 @@
 						img_src = pp_images[i];
 					}
 					toInject += "<li class='"+classname+"'><a href='#'><img src='" + img_src + "' width='50' alt='' /></a></li>";
-				};
+				}
 				
-				toInject = settings.gallery_markup.replace(/{gallery}/g,toInject);
+				toInject = settings.gallery_markup.replace(/\{gallery\}/g,toInject);
 				
 				$pp_pic_holder.find('#pp_full_res').after(toInject);
 				
-				$pp_gallery = $('.pp_pic_holder .pp_gallery'), $pp_gallery_li = $pp_gallery.find('li'); // Set the gallery selectors
+				$pp_gallery = $('.pp_pic_holder .pp_gallery'); $pp_gallery_li = $pp_gallery.find('li'); // Set the gallery selectors
 				
 				$pp_gallery.find('.pp_arrow_next').click(function(){
 					$.prettyPhoto.changeGalleryPage('next');
@@ -810,12 +806,12 @@
 							return false;
 						});
 				});
-			};
+			}
 			
 			
 			// Inject the play/pause if it's a slideshow
 			if(settings.slideshow){
-				$pp_pic_holder.find('.pp_nav').prepend('<a href="#" class="pp_play">Play</a>')
+				$pp_pic_holder.find('.pp_nav').prepend('<a href="#" class="pp_play">Play</a>');
 				$pp_pic_holder.find('.pp_nav .pp_play').click(function(){
 					$.prettyPhoto.startSlideshow();
 					return false;
@@ -846,7 +842,7 @@
 					}else{
 						$(this).removeClass('pp_contract').addClass('pp_expand');
 						doresize = true;
-					};
+					}
 				
 					_hideContent(function(){ $.prettyPhoto.open(); });
 			
@@ -867,7 +863,7 @@
 			});
 			
 			_center_overlay(); // Center it
-		};
+		}
 
 		if(!pp_alreadyInitialized && getHashtag()){
 			pp_alreadyInitialized = true;
@@ -887,16 +883,16 @@
 	};
 	
 	function getHashtag(){
-		url = location.href;
+		var url = location.href;
 		hashtag = (url.indexOf('#prettyPhoto') !== -1) ? decodeURI(url.substring(url.indexOf('#prettyPhoto')+1,url.length)) : false;
 
 		return hashtag;
-	};
+	}
 	
 	function setHashtag(){
 		if(typeof theRel == 'undefined') return; // theRel is set on normal calls, it's impossible to deeplink using the API
 		location.hash = theRel + '/'+rel_index+'/';
-	};
+	}
 	
 	function clearHashtag(){
 		if ( location.href.indexOf('#prettyPhoto') !== -1 ) location.hash = "prettyPhoto";

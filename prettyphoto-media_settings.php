@@ -1,5 +1,4 @@
 <?php
-
 /*
  * prettyPhoto Media plugin settings page
  */
@@ -37,13 +36,13 @@ function prettyphoto_settings_page_setup() {
 
 	add_action( 'admin_init', 'prettyphoto_register_settings' );
 
-	$prettyphotomedia->settings_page = add_options_page( __( 'prettyPhoto Media Settings', 'prettyphoto-media' ), __( 'prettyPhoto Media', 'prettyphoto-media' ), 'manage_options', 'prettyphoto-settings-page', 'prettyphoto_display_settings_page' );
+	$prettyphotomedia->settings_page = add_plugins_page( __( 'prettyPhoto Media Settings', 'prettyphoto-media' ), __( 'prettyPhoto Media', 'prettyphoto-media' ), 'manage_options', 'prettyphoto-settings-page', 'prettyphoto_display_settings_page' );
 
 	add_action( 'load-' . $prettyphotomedia->settings_page, 'prettyphoto_settings_sections' );
 
 	/* Admin scripts & Styles */
-	add_action( 'admin_print_scripts-' . $prettyphotomedia->settings_page, 'prettyphoto_admin_scripts' );
-	add_action( 'admin_print_styles-' . $prettyphotomedia->settings_page, 'prettyphoto_admin_styles' );
+	add_action( 'admin_enqueue_scripts', 'prettyphoto_admin_scripts' );
+	add_action( 'admin_enqueue_scripts', 'prettyphoto_admin_styles' );
 }
 
 function prettyphoto_register_settings() {
@@ -391,33 +390,28 @@ function prettyphoto_create_setting($args = array(), $before = '<div class="row"
 }
 
 function prettyphoto_display_settings_page() {
-	echo '<div class="wrap prettyphoto-media-settings">' . "\n";
-
-	screen_icon();
-
-	echo '<h2>' . __( 'prettyPhoto Media Settings', 'prettyphoto-media' ) . '</h2>' . "\n";
-
-	settings_errors();
-
-	echo '<form method="post" action="options.php">' . "\n";
-
-	settings_fields( 'prettyphoto_settings' );
-
-	echo '<div class="ui-tabs">' . "\n";
-	echo '<h2 class="nav-tab-wrapper">' . "\n";
-	echo '<ul class="ui-tabs-nav">' . "\n";
-	echo '<li><a href="#prettyphoto-media-section-main" class="nav-tab">' . __( 'Main Settings', 'prettyphoto-media' ) . '</a></li>' . "\n";
-	echo '<li><a href="#prettyphoto-media-section-customisations" class="nav-tab">' . __( 'prettyPhoto Customisation', 'prettyphoto-media' ) . '</a></li>' . "\n";
-	echo '</ul>' . "\n";
-	echo '</h2>' . "\n";
-
-	do_settings_sections( $_GET['page'] );
-
-	submit_button( esc_attr__( 'Update Settings', 'prettyphoto-media' ) );
-
-	echo '</div>';
-	echo '</form>' . "\n";
-	echo '</div>' . "\n";
+	?>
+	<div class="wrap prettyphoto-media-settings">
+		<?php screen_icon(); ?>
+		<h2><?php __( 'prettyPhoto Media Settings', 'prettyphoto-media' ); ?></h2>
+		<?php settings_errors(); ?>
+		<form method="post" action="options.php">
+			<?php settings_fields( 'prettyphoto_settings' ); ?>
+			<div class="ui-tabs">
+				<h2 class="nav-tab-wrapper">
+					<ul class="ui-tabs-nav">
+						<li><a href="#prettyphoto-media-section-main" class="nav-tab"><?php _e( 'Main Settings', 'prettyphoto-media' ); ?></a></li>
+						<li><a href="#prettyphoto-media-section-customisations" class="nav-tab"><?php _e( 'prettyPhoto Customisation', 'prettyphoto-media' ); ?></a></li>
+					</ul>
+				</h2>
+				<?php
+				do_settings_sections( $_GET['page'] );
+				submit_button( esc_attr__( 'Update Settings', 'prettyphoto-media' ) );
+				?>
+			</div>
+		</form>
+	</div>
+	<?php
 }
 
 function prettyphoto_validate_settings($input) {
@@ -493,7 +487,7 @@ function prettyphoto_validate_settings($input) {
 
 	$twitter_markup = '<div class="twitter"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/tweet_button.html?count=none&amp;url={location_href}" style="border:none; overflow:hidden; width:59px; height:20px;"></iframe></div>';
 
-	$facebook_markup = '<div class="facebook"><iframe src="//www.facebook.com/plugins/like.php?href={location_href}&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></div>';
+	$facebook_markup = '<div class="facebook"><iframe src="//www.facebook.com/plugins/like.php?href={location_href}&amp;width=50&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></div>';
 
 	if ( $settings['show_twitter'] && $settings['show_facebook'] ) {
 		$settings['ppm_custom']['social_tools'] = $twitter_markup . $facebook_markup;
@@ -509,9 +503,8 @@ function prettyphoto_validate_settings($input) {
 }
 
 function prettyphoto_admin_scripts() {
-	wp_print_scripts( 'jquery-ui-tabs' );
-	wp_enqueue_script( 'jquery-cookie', PRETTYPHOTO_URI . 'js/jquery.cookie.js' );
-	wp_enqueue_script( 'prettyphoto-media-admin-script', PRETTYPHOTO_URI . 'js/admin-script.js' );
+	wp_enqueue_script( 'jquery-ui-tabs' );
+	wp_enqueue_script( 'prettyphoto-media-admin-script', PRETTYPHOTO_URI . 'js/admin-script.js', 'jquery-ui-tabs', '2.0' );
 }
 
 function prettyphoto_admin_styles() {

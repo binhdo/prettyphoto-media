@@ -16,15 +16,15 @@ function prettyphoto_init_functions() {
 	}
 
 	if ( prettyphoto_get_option( 'loadppcss' ) && !is_admin() ) {
-		wp_enqueue_style( 'prettyphoto', PRETTYPHOTO_URI . 'css/prettyPhoto.css', false, '3.1.4', 'screen' );
+		wp_enqueue_style( 'prettyphoto', PRETTYPHOTO_URI . 'css/prettyPhoto.min.css', false, '3.1.5', 'screen' );
 	}
 
 	switch ( prettyphoto_get_option( 'scriptlocation' ) ) {
 		case 'header' :
-			wp_enqueue_script( 'prettyphoto', PRETTYPHOTO_URI . 'js/jquery.prettyPhoto.min.js', array('jquery'), '3.1.4' );
+			wp_enqueue_script( 'prettyphoto', PRETTYPHOTO_URI . 'js/jquery.prettyPhoto.min.js', array('jquery'), '3.1.5' );
 			break;
 		case 'footer' :
-			wp_enqueue_script( 'prettyphoto', PRETTYPHOTO_URI . 'js/jquery.prettyPhoto.min.js', array('jquery'), '3.1.4', true );
+			wp_enqueue_script( 'prettyphoto', PRETTYPHOTO_URI . 'js/jquery.prettyPhoto.min.js', array('jquery'), '3.1.5', true );
 			break;
 		case 'none' :
 			break;

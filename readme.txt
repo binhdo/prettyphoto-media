@@ -14,7 +14,7 @@ A simple plugin to conveniently add [prettyPhoto](http://www.no-margin-for-error
 
 = Features =
 
-* includes the latest **prettyPhoto v3.1.4** script (slightly modified in plugin version 1.3)
+* includes the latest **prettyPhoto v3.1.5** script (slightly modified in plugin version 1.3)
 * fully customisable through the plugins settings page
 * configurable 'hook' attribute tag, support for HTML5 compliant 'data-' attribute
 * option to automatically transform built-in WordPress galleries (linked to images) into prettyPhoto slideshows
@@ -42,6 +42,8 @@ For more information on prettyPhoto please visit the project page:
 3. prettyPhoto customisation settings
 
 == Changelog ==
+
+= 2.0 =
 
 = v1.4 =
 * fixing a bug where a custom 'ppselector'-setting was not applied to the initialisation script 
