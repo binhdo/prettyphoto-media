@@ -1,5 +1,4 @@
 <?php
-
 /*
  * prettyPhoto Media plugin functions
  */
@@ -15,29 +14,20 @@ function prettyphoto_init_functions() {
 		prettyphoto_update_settings();
 	}
 
-	if ( prettyphoto_get_option( 'loadppcss' ) && !is_admin() ) {
-		wp_enqueue_style( 'prettyphoto', PRETTYPHOTO_URI . 'css/prettyPhoto.min.css', false, '3.1.5', 'screen' );
-	}
-
-	switch ( prettyphoto_get_option( 'scriptlocation' ) ) {
-		case 'header' :
-			wp_enqueue_script( 'prettyphoto', PRETTYPHOTO_URI . 'js/jquery.prettyPhoto.min.js', array('jquery'), '3.1.5' );
-			break;
-		case 'footer' :
+	if ( !is_admin() ) {
+		if ( prettyphoto_get_option( 'loadppcss' ) )
+			wp_enqueue_style( 'prettyphoto', PRETTYPHOTO_URI . 'css/prettyPhoto.min.css', false, '3.1.5', 'screen' );
+		if ( prettyphoto_get_option( 'loadppjs' ) )
 			wp_enqueue_script( 'prettyphoto', PRETTYPHOTO_URI . 'js/jquery.prettyPhoto.min.js', array('jquery'), '3.1.5', true );
-			break;
-		case 'none' :
-			break;
 	}
 
 	if ( prettyphoto_get_option( 'wpautogallery' ) ) {
 		add_filter( 'wp_get_attachment_link', 'prettyphoto_get_attachment_link', 10, 4 );
 	}
-
-	add_action( 'wp_footer', 'prettyphoto_footer_script', 100 );
+	add_action( 'wp_footer', 'prettyphoto_footer_init', 99 );
 }
 
-function prettyphoto_footer_script() {
+function prettyphoto_footer_init() {
 	$ppm_defaults = prettyphoto_get_default_settings( 'ppm_custom' );
 	$ppm_custom = prettyphoto_get_option( 'ppm_custom' );
 
@@ -55,23 +45,27 @@ function prettyphoto_footer_script() {
 			}
 		}
 	}
+	$pphook = prettyphoto_get_option( 'hook' );
+	$ppselector = prettyphoto_get_option( 'ppselector' );
+	$ppoptions = isset( $options_changed ) ? '{' . implode( ', ', $options_changed ) . '}' : '';
+	?>
+	<script>
+		(function($) {
+			$(function() {
+				$('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').not('[<?php echo $pphook; ?>*="<?php echo $ppselector; ?>"], .nolightbox').attr('<?php echo $pphook; ?>', function() {
+					var gallery_id = $(this).closest('[id^="gallery-"]').attr('id');
+					var post_id = $(this).closest('[id^="post-"]').attr('id');
+					return '<?php echo $ppselector; ?>' + '[' + (gallery_id ? gallery_id : post_id) + ']';
+				});
 
-	$out = '<script>' . "\n";
-	$out .= 'jQuery(function($) {' . "\n";
-	$out .= '$(\'a[' . prettyphoto_get_option( 'hook' ) . '^="' . prettyphoto_get_option( 'ppselector' ) . '"]\').prettyPhoto(';
-
-	if ( isset( $options_changed ) ) {
-		$out .= '{ ' . implode( ', ', $options_changed ) . ' }';
-	}
-
-	$out .= ');' . "\n";
-	$out .= '});' . "\n";
-	$out .= '</script>' . "\n";
-
-	echo $out;
+				$('a[<?php echo $pphook; ?>^="<?php echo $ppselector; ?>"]').prettyPhoto(<?php echo $ppoptions ?>);
+			});
+		})(jQuery);
+	</script>
+	<?php
 }
 
-function prettyphoto_get_attachment_link($html, $id, $size, $permalink) {
+function prettyphoto_get_attachment_link( $html, $id, $size, $permalink ) {
 	global $post;
 
 	$pid = $post->ID;
@@ -84,7 +78,7 @@ function prettyphoto_get_attachment_link($html, $id, $size, $permalink) {
 	return $html;
 }
 
-function prettyphoto_get_option($option) {
+function prettyphoto_get_option( $option ) {
 	$settings = get_option( 'prettyphoto_settings' );
 
 	if ( !is_array( $settings ) || !array_key_exists( $option, $settings ) )
@@ -114,11 +108,11 @@ function prettyphoto_update_settings() {
 	update_option( 'prettyphoto_settings', $settings );
 }
 
-function prettyphoto_get_default_settings($subgroup = '') {
+function prettyphoto_get_default_settings( $subgroup = '' ) {
 	$settings = array(
 		'version' => PRETTYPHOTO_VERSION,
 		'loadppcss' => 1,
-		'scriptlocation' => 'footer',
+		'loadppjs' => 1,
 		'ppselector' => 'prettyPhoto',
 		'hook' => 'rel',
 		'wpautogallery' => 0,

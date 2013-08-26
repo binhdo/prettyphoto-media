@@ -16,10 +16,7 @@ class PrettyPhotoMedia {
 	/* PHP5 constructor */
 
 	function __construct() {
-		add_action( 'plugins_loaded', array(
-			&$this,
-			'prettyphoto_init'
-		) );
+		add_action( 'plugins_loaded', array(&$this, 'prettyphoto_init') );
 	}
 
 	/* Initialise plugin */
@@ -36,22 +33,16 @@ class PrettyPhotoMedia {
 		/* Load settings page / */
 		if ( is_admin() ) {
 			require_once (PRETTYPHOTO_DIR . 'prettyphoto-media_settings.php');
-			add_filter( 'plugin_action_links', array(
-				&$this,
-				'prettyphoto_plugin_action_links'
-					), 10, 2 );
-			register_deactivation_hook( __FILE__, array(
-				&$this,
-				'prettyphoto_deactivate_plugin'
-			) );
+			add_filter( 'plugin_action_links', array(&$this, 'prettyphoto_plugin_action_links'), 10, 2 );
+			register_deactivation_hook( __FILE__, array(&$this, 'prettyphoto_deactivate_plugin') );
 		}
 
 		load_plugin_textdomain( 'prettyphoto-media', false, PRETTYPHOTO_DIR . 'languages/' );
 	}
 
-	function prettyphoto_plugin_action_links($links, $file) {
+	function prettyphoto_plugin_action_links( $links, $file ) {
 		if ( $file == plugin_basename( dirname( __FILE__ ) . '/prettyphoto-media.php' ) ) {
-			$links[] = '<a href="options-general.php?page=prettyphoto-settings-page">' . __( 'Settings' ) . '</a>';
+			$links[] = '<a href="plugins.php?page=prettyphoto-settings-page">' . __( 'Settings' ) . '</a>';
 		}
 		return $links;
 	}

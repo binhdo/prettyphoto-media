@@ -8,11 +8,6 @@ add_action( 'admin_menu', 'prettyphoto_settings_page_setup' );
 function prettyphoto_settings_page_setup() {
 	global $prettyphotomedia;
 
-	$prettyphotomedia->scriptlocations = array(
-		'header' => __( 'place script in header', 'prettyphoto-media' ),
-		'footer' => __( 'place script in footer', 'prettyphoto-media' ),
-		'none' => __( 'do not load script', 'prettyphoto-media' )
-	);
 	$prettyphotomedia->themes = array(
 		'pp_default' => __( 'Default theme', 'prettyphoto-media' ),
 		'light_rounded' => __( 'Light rounded theme', 'prettyphoto-media' ),
@@ -67,13 +62,12 @@ function prettyphoto_section_main() {
 		'desc' => __( 'load prettyPhoto.css', 'prettyphoto-media' ),
 		'value' => true
 			) );
-
 	$html .= prettyphoto_create_setting( array(
-		'id' => 'scriptlocation',
-		'type' => 'select',
-		'label' => __( 'Script location', 'prettyphoto-media' ),
-		'desc' => __( 'where to place the required javascript', 'prettyphoto-media' ),
-		'options' => $prettyphotomedia->scriptlocations
+		'id' => 'loadppjs',
+		'type' => 'checkbox',
+		'label' => __( 'Load javascript', 'prettyphoto-media' ),
+		'desc' => __( 'load prettyPhoto.js', 'prettyphoto-media' ),
+		'value' => true
 			) );
 
 	$html .= prettyphoto_create_setting( array(
@@ -320,7 +314,7 @@ function prettyphoto_section_customisations() {
 	echo $html;
 }
 
-function prettyphoto_create_setting($args = array(), $before = '<div class="row">', $after = '</div>') {
+function prettyphoto_create_setting( $args = array(), $before = '<div class="row">', $after = '</div>' ) {
 
 	extract( $args );
 
@@ -338,7 +332,7 @@ function prettyphoto_create_setting($args = array(), $before = '<div class="row"
 			$html .= "\t" . '<input type="text" id="' . $id . '" name="' . $setting_id . '" ';
 			if ( isset( $class ) )
 				$html .= 'class="' . $class . '" ';
-			$html .= 'value="' . esc_attr( $field_value ) . '" />' . "\n";
+			$html .= 'value="' . esc_attr( $field_value ) . '">' . "\n";
 			if ( isset( $desc ) )
 				$html .= '<span class="description">' . esc_attr( $desc ) . '</span>' . "\n";
 			break;
@@ -346,7 +340,7 @@ function prettyphoto_create_setting($args = array(), $before = '<div class="row"
 		case 'checkbox' :
 			if ( isset( $label ) )
 				$html .= "\t" . '<label for="' . $id . '">' . $label . '</label>' . "\n";
-			$html .= "\t" . '<input type="checkbox" id="' . $id . '" name="' . $setting_id . '" value="' . $value . '"' . checked( $value, $field_value, false ) . ' />' . "\n";
+			$html .= "\t" . '<input type="checkbox" id="' . $id . '" name="' . $setting_id . '" value="' . $value . '"' . checked( $value, $field_value, false ) . '>' . "\n";
 			if ( isset( $desc ) )
 				$html .= '<span class="description">' . esc_attr( $desc ) . '</span>' . "\n";
 			break;
@@ -414,12 +408,13 @@ function prettyphoto_display_settings_page() {
 	<?php
 }
 
-function prettyphoto_validate_settings($input) {
+function prettyphoto_validate_settings( $input ) {
 	global $prettyphotomedia;
 
 	/* Main section */
 	$main_checkbox_options = array(
 		'loadppcss',
+		'loadppjs',
 		'wpautogallery',
 		'show_twitter',
 		'show_facebook'
@@ -427,9 +422,6 @@ function prettyphoto_validate_settings($input) {
 	foreach ( $main_checkbox_options as $main_checkbox_option ) {
 		$settings[$main_checkbox_option] = isset( $input[$main_checkbox_option] ) ? true : false;
 	}
-
-	if ( array_key_exists( $input['scriptlocation'], $prettyphotomedia->scriptlocations ) )
-		$settings['scriptlocation'] = $input['scriptlocation'];
 
 	$main_text_options = array(
 		'ppselector',
