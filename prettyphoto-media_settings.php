@@ -95,6 +95,14 @@ function prettyphoto_section_main() {
 			) );
 
 	$html .= prettyphoto_create_setting( array(
+		'id' => 'jquery_attributes',
+		'type' => 'checkbox',
+		'label' => 'jQuery attributes',
+		'desc' => __( 'use jQuery to automatically add the required attributes', 'prettyphoto-media' ),
+		'value' => true
+			) );
+
+	$html .= prettyphoto_create_setting( array(
 		'id' => 'show_twitter',
 		'type' => 'checkbox',
 		'label' => __( 'Show Twitter', 'prettyphoto-media' ),
@@ -399,8 +407,8 @@ function prettyphoto_display_settings_page() {
 					</ul>
 				</h2>
 				<?php
-				do_settings_sections( $_GET['page'] );
-				submit_button( esc_attr__( 'Update Settings', 'prettyphoto-media' ) );
+				do_settings_sections( 'prettyphoto-settings-page' );
+				submit_button( esc_attr__( 'Save Settings', 'prettyphoto-media' ) );
 				?>
 			</div>
 		</form>
@@ -416,6 +424,7 @@ function prettyphoto_validate_settings( $input ) {
 		'loadppcss',
 		'loadppjs',
 		'wpautogallery',
+		'jquery_attributes',
 		'show_twitter',
 		'show_facebook'
 	);

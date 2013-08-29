@@ -24,10 +24,10 @@ function prettyphoto_init_functions() {
 	if ( prettyphoto_get_option( 'wpautogallery' ) ) {
 		add_filter( 'wp_get_attachment_link', 'prettyphoto_get_attachment_link', 10, 4 );
 	}
-	add_action( 'wp_footer', 'prettyphoto_footer_init', 99 );
+	add_action( 'wp_footer', 'prettyphoto_action_footer', 99 );
 }
 
-function prettyphoto_footer_init() {
+function prettyphoto_action_footer() {
 	$ppm_defaults = prettyphoto_get_default_settings( 'ppm_custom' );
 	$ppm_custom = prettyphoto_get_option( 'ppm_custom' );
 
@@ -52,13 +52,15 @@ function prettyphoto_footer_init() {
 	<script>
 		(function($) {
 			$(function() {
-				$('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').not('[<?php echo $pphook; ?>*="<?php echo $ppselector; ?>"], .nolightbox').attr('<?php echo $pphook; ?>', function() {
-					var gallery_id = $(this).closest('[id^="gallery-"]').attr('id');
-					var post_id = $(this).closest('[id^="post-"]').attr('id');
-					return '<?php echo $ppselector; ?>' + '[' + (gallery_id ? gallery_id : post_id) + ']';
-				});
-
-				$('a[<?php echo $pphook; ?>^="<?php echo $ppselector; ?>"]').prettyPhoto(<?php echo $ppoptions ?>);
+	<?php if ( prettyphoto_get_option( 'jquery_attributes' ) ) : ?>
+					$('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').not('[<?php echo $pphook; ?>*="<?php echo $ppselector; ?>"], .nolightbox').attr('<?php echo $pphook; ?>', function() {
+						var gallery_id = $(this).closest('[id^="gallery-"]').attr('id');
+						var post_id = $(this).closest('[id^="post-"]').attr('id');
+						return '<?php echo $ppselector; ?>' + '[' + (gallery_id ? gallery_id : post_id) + ']';
+					});
+	<?php endif; ?>
+				$('a[<?php echo $pphook; ?>^="<?php echo $ppselector; ?>"]').prettyPhoto(<?php echo $ppoptions
+	?>);
 			});
 		})(jQuery);
 	</script>
@@ -67,7 +69,6 @@ function prettyphoto_footer_init() {
 
 function prettyphoto_get_attachment_link( $html, $id, $size, $permalink ) {
 	global $post;
-
 	$pid = $post->ID;
 	$hook = prettyphoto_get_option( 'hook' );
 	$selector = prettyphoto_get_option( 'ppselector' );
@@ -90,7 +91,6 @@ function prettyphoto_get_option( $option ) {
 function prettyphoto_update_settings() {
 	$settings = get_option( 'prettyphoto_settings' );
 	$default_settings = prettyphoto_get_default_settings();
-
 	$settings['version'] = PRETTYPHOTO_VERSION;
 
 	foreach ( $settings as $set_key => $set_value ) {
@@ -116,6 +116,7 @@ function prettyphoto_get_default_settings( $subgroup = '' ) {
 		'ppselector' => 'prettyPhoto',
 		'hook' => 'rel',
 		'wpautogallery' => 0,
+		'jquery_attributes' => 0,
 		'show_twitter' => false,
 		'show_facebook' => false,
 		'ppm_custom' => array(
