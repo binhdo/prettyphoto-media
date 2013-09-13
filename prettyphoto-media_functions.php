@@ -59,9 +59,19 @@ function prettyphoto_action_footer() {
 						return '<?php echo $ppselector; ?>' + '[' + (gallery_id ? gallery_id : post_id) + ']';
 					});
 	<?php endif; ?>
-				$('a[<?php echo $pphook; ?>^="<?php echo $ppselector; ?>"]').prettyPhoto(<?php echo $ppoptions
-	?>);
+				responsive_pp();
+				$(window).resize(function() {
+					responsive_pp();
+				});
 			});
+			function responsive_pp() {
+				var ppsel = $('a[<?php echo $pphook; ?>^="<?php echo $ppselector; ?>"]');
+				if ($(window).width() < 400) {
+					ppsel.unbind('click.prettyphoto');
+				} else {
+					ppsel.prettyPhoto(<?php echo $ppoptions; ?>);
+				}
+			}
 		})(jQuery);
 	</script>
 	<?php

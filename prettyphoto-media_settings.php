@@ -98,7 +98,7 @@ function prettyphoto_section_main() {
 		'id' => 'jquery_attributes',
 		'type' => 'checkbox',
 		'label' => 'jQuery attributes',
-		'desc' => __( 'use jQuery to automatically add the required attributes', 'prettyphoto-media' ),
+		'desc' => __( 'use jQuery to automatically add the required attributes to linked images', 'prettyphoto-media' ),
 		'value' => true
 			) );
 
@@ -401,7 +401,7 @@ function prettyphoto_display_settings_page() {
 			<?php settings_fields( 'prettyphoto_settings' ); ?>
 			<div class="ui-tabs">
 				<h2 class="nav-tab-wrapper">
-					<ul class="ui-tabs-nav">
+					<ul>
 						<li><a href="#prettyphoto-media-section-main" class="nav-tab"><?php _e( 'Main Settings', 'prettyphoto-media' ); ?></a></li>
 						<li><a href="#prettyphoto-media-section-customisations" class="nav-tab"><?php _e( 'prettyPhoto Customisation', 'prettyphoto-media' ); ?></a></li>
 					</ul>
@@ -505,7 +505,7 @@ function prettyphoto_validate_settings( $input ) {
 
 function prettyphoto_admin_scripts() {
 	wp_enqueue_script( 'jquery-ui-tabs' );
-	wp_enqueue_script( 'prettyphoto-media-admin-script', PRETTYPHOTO_URI . 'js/admin-script.js', 'jquery-ui-tabs', '2.0' );
+	wp_enqueue_script( 'prettyphoto-media-admin-script', PRETTYPHOTO_URI . 'js/admin-script.js', array('jquery-ui-tabs'), '2.0', true );
 }
 
 function prettyphoto_admin_styles() {
